@@ -2,17 +2,23 @@
 
 - name: APT | Install ufw
   apt: pkg=ufw update_cache=yes cache_valid_time=3600
+  
+- name: INCLUDE | Add UFW role if firewall_add_role_mode is true
+	include: firewall_add_rule.yml
+	when: firewall_add_rule_mode
 
 - name: UFW | Reset firewall
   ufw: state=reset
-  when: firewall_reset
+  when: firewall_reset and not firewall_add_rule_mode
 
 - name: INCLUDE | Config
   include: config.yml
+  when: not firewall_add_rule_mode
 
 - name: INCLUDE | Firewall
   include: firewall.yml
+  when: not firewall_add_rule_mode
 
 - name: INCLUDE | Fail2ban
   include: fail2ban.yml
-  when: firewall_use_fail2ban
+  when: firewall_use_fail2ban and not firewall_add_rule_mode
