@@ -14,3 +14,11 @@
     port={{ item.port }}
     src={{ item.host | default('any') }}
   with_items: "{{ firewall_custom_rules }}"
+  
+- name: UFW | Allow whitelisted hosts
+  ufw: rule=allow src={{ item }} insert=1
+  with_items: "{{ firewall_whitelisted_hosts }}"
+
+- name: UFW | Deny blacklisted hosts
+  ufw: rule=deny src={{ item }} insert=2
+  with_items: "{{ firewall_blacklisted_hosts }}"
