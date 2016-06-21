@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Emilien Mantel
+  author: Emilien Mantel, Hitesh Prabhakar
   description: Simple firewall for Debian/Ubuntu (with UFW/fail2ban)
   company:
   license: GPLv2
