@@ -31,6 +31,7 @@ Role Variables
 
 - `firewall_open_tcp_ports`: Input TCP open ports list
 - `firewall_open_udp_ports`: Input UDP open ports list
+- `firewall_add_rule_mode`: Specifies if the role should just add a rule (blacklist, whitelist, rule, open a tcp port, open a udp port)
 
 ### UFW Configuration
 
@@ -51,9 +52,9 @@ Role Variables
 Custom rule is a hash with:
 
 - `proto`: any/tcp/udp/ipv6/esp/ah (default: any)
-- `port`
-- `policy`: allow/deny/reject (default: allow)
-- `host`
+- `port`: port to work on.
+- `rule`: allow/deny/reject (default: allow)
+- `src`: any/from_ip (default: any)
 
 ### Fail2ban
 
@@ -98,11 +99,21 @@ Only webservers (10.0.15.0/24) and whitelisted hosts (10.255.0.12) can connect t
         firewall_custom_rules:
           - proto: 'tcp'
             port: '3306'
-            host: '10.0.15.0/24'
-            policy: 'allow'
+            src: '10.0.15.0/24'
+            rule: 'allow'
       roles:
          - { role: HanXHX.firewall }
+         
+### Using as a simple dependency with another role in their meta:
 
+    dependencies:
+      - role: HanXHX.firewall
+        firewall_add_rule_mode: true
+        firewall_custom_rules:
+            - proto: 'tcp'
+              port: '3306'
+              src: '10.0.15.0/24'
+              rule: 'allow'
 
 License
 -------
