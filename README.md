@@ -110,10 +110,10 @@ Only webservers (10.0.15.0/24) and whitelisted hosts (10.255.0.12) can connect t
       - role: HanXHX.firewall
         firewall_add_rule_mode: true
         firewall_custom_rules:
-            - proto: 'tcp'
-              port: '3306'
-              src: '10.0.15.0/24'
-              rule: 'allow'
+          - proto: 'tcp'
+            port: '3306'
+            src: '10.0.15.0/24'
+            rule: 'allow'
 
 License
 -------
