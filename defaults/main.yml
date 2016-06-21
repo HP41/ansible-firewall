@@ -34,3 +34,4 @@ firewall_fail2ban_maxretry: '4'
 firewall_fail2ban_destemail: 'root@localhost'
 firewall_fail2ban_jails: []
 
+firewall_add_rule_mode: false
