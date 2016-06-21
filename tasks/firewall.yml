@@ -10,21 +10,8 @@
   ufw: rule=allow proto=tcp port={{ sshd_port.stdout }}
   when: firewall_auto_open_ssh
 
-- name: UFW | Allow TCP ports
-  ufw: rule=allow proto=tcp port={{ item }}
-  with_items: "{{ firewall_open_tcp_ports }}"
-
-- name: UFW | Allow UDP ports
-  ufw: rule=allow proto=udp port={{ item }}
-  with_items: "{{ firewall_open_udp_ports }}"
-
-- name: UFW | Custom rules
-  ufw: >
-    rule={{ item.rule | default('allow') }}
-    proto={{ item.proto | default('any') }}
-    port={{ item.port }}
-    src={{ item.host | default('any') }}
-  with_items: "{{ firewall_custom_rules }}"
+- name: INCLUDE | Adding UFW Whitelist/Blacklist/Rules
+  include: firewall_add_rule.yml
 
 - name: UFW | Log level
   ufw: logging={{ firewall_logging }}
