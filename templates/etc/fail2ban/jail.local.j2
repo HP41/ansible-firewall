@@ -12,7 +12,7 @@ banaction = ufw
 #
 
 {% for jail in firewall_fail2ban_jails %}
-[{{ jail.section}}]
+[{{ jail.section }}]
 {% for key, value in jail.iteritems() if key != 'section'%}
 {{ "%-9s = %s"|format(key, value) }}
 {% endfor %}
